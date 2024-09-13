@@ -4,6 +4,7 @@
 
 import numpy as np
 
+
 def np_matmul(mat1, mat2):
     """Perform matrix multiplication."""
     mat1 = np.array(mat1)

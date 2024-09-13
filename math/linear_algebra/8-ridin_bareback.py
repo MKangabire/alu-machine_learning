@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-"""Perform matrix multiplication."""
+""" defines function that performs matrix multiplication """
 
 
 def mat_mul(mat1, mat2):
-    """Perform matrix multiplication."""
-    if len(mat1[0]) != len(mat2):
+    """ returns new matrix that is the product of two 2D matrices """
+    mat1_columns = len(mat1[0])
+    mat2_rows = len(mat2)
+    if mat1_columns != mat2_rows:
         return None
-    result = [[0 for _ in range(len(mat2[0]))] for _ in range(len(mat1))]
-    for i in range(len(mat1)):  # Loop through rows of mat1
-        for j in range(len(mat2[0])):  # Loop through columns of mat2
-            for k in range(len(mat1[0])):  # Loop through columns of mat1 / rows of mat2
-                result[i][j] += mat1[i][k] * mat2[k][j]
-    return result
+    new_matrix = []
+    for row_count, row in enumerate(mat1):
+        new_matrix.append([])
+        for column_count in range(len(mat2[0])):
+            dot = 0
+            for index in range(mat1_columns):
+                dot += (mat1[row_count][index] * mat2[index][column_count])
+            new_matrix[row_count].append(dot)
+    return new_matrix
