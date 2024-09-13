@@ -4,6 +4,7 @@
 
 import numpy as np
 
+
 def np_cat(mat1, mat2, axis=0):
     """Perform that concatenates two matrices along a specific axes."""
     return np.concatenate((mat1, mat2), axis=axis)
