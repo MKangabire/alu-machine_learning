@@ -12,4 +12,3 @@ def matrix_transpose(matrix):
         for idx, i in enumerate(row):
             matrix_transpose[idx].append(i)
     return matrix_transpose
-    

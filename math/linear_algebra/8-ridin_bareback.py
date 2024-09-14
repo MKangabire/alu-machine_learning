@@ -17,4 +17,3 @@ def mat_mul(mat1, mat2):
                 dot += (mat1[row_count][index] * mat2[index][column_count])
             new_matrix[row_count].append(dot)
     return new_matrix
-    
