@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""Calculate the minor matrix of a matrix."""
+
+
 import numpy as np
 
 def minor(matrix):
