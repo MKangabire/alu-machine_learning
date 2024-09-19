@@ -125,4 +125,3 @@ def transpose(matrix):
                     t_row.append(matrix[row][column])
         transpose_matrix.append(t_row)
     return transpose_matrix
-
