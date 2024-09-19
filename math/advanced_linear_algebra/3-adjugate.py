@@ -1,47 +1,127 @@
 #!/usr/bin/env python3
-"""Calculate the cofactor and adjugate (adjoint) matrix of a matrix."""
+"""
+Defines function that calculates the adjugate matrix of a matrix
+"""
 
-def cofactor(matrix):
-    """Calculate the cofactor matrix of a matrix."""
-    if not all(isinstance(row, list) for row in matrix) or not isinstance(matrix, list):
-        raise TypeError("matrix must be a list of lists")
-
-    if len(matrix) == 0 or len(matrix[0]) == 0:
-        raise ValueError("matrix must be a list of lists")
-
-    rows = len(matrix)
-    cols = len(matrix[0])
-    if any(len(row) != cols for row in matrix) or rows != cols:
-        raise ValueError("matrix must be a non-empty square matrix")
-    
-    def get_submatrix(m, row, col):
-        """Get the submatrix excluding the specified row and column."""
-        return [r[:col] + r[col+1:] for i, r in enumerate(m) if i != row]
-    
-    def determinant(m):
-        """Calculate the determinant of a matrix."""
-        if len(m) == 1:
-            return m[0][0]
-        
-        if len(m) == 2:
-            return m[0][0] * m[1][1] - m[0][1] * m[1][0]
-        
-        det = 0
-        for col in range(len(m)):
-            submatrix = get_submatrix(m, 0, col)
-            det += ((-1) ** col) * m[0][col] * determinant(submatrix)
-        return det
-    
-    cofactor_matrix = [[(((-1) ** (i + j)) * determinant(get_submatrix(matrix, i, j)))
-                        for j in range(cols)] for i in range(rows)]
-    return cofactor_matrix
-
-def transpose(matrix):
-    """Transpose the matrix."""
-    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
 
 def adjugate(matrix):
-    """Calculate the adjugate (adjoint) of a matrix."""
-    cofactor_matrix = cofactor(matrix)
+    """
+    Calculates the adjugate matrix of a matrix
+
+    parameters:
+        matrix [list of lists]:
+            matrix whose adjugate matrix should be calculated
+
+    returns:
+        the adjugate matrix of matrix
+    """
+    if type(matrix) is not list:
+        raise TypeError("matrix must be a list of lists")
+    matrix_size = len(matrix)
+    if matrix_size == 0:
+        raise TypeError("matrix must be a list of lists")
+    for row in matrix:
+        if type(row) is not list:
+            raise TypeError("matrix must be a list of lists")
+        if len(row) != matrix_size:
+            raise ValueError("matrix must be a non-empty square matrix")
+    if matrix_size == 1:
+        return [[1]]
+    multiplier = 1
+    cofactor_matrix = []
+    for row_idx in range(matrix_size):
+        cofactor_row = []
+        for column_idx in range(matrix_size):
+            sub_matrix = []
+            for row in range(matrix_size):
+                if row == row_idx:
+                    continue
+                new_row = []
+                for column in range(matrix_size):
+                    if column == column_idx:
+                        continue
+                    new_row.append(matrix[row][column])
+                sub_matrix.append(new_row)
+            cofactor_row.append(multiplier * determinant(sub_matrix))
+            multiplier *= -1
+        cofactor_matrix.append(cofactor_row)
+        if matrix_size % 2 == 0:
+            multiplier *= -1
     adjugate_matrix = transpose(cofactor_matrix)
     return adjugate_matrix
+
+
+def determinant(matrix):
+    """
+    Calculates the determinant of a matrix
+
+    parameters:
+        matrix [list of lists]:
+            matrix whose determinant should be calculated
+
+    returns:
+        the determinant of matrix
+    """
+    if type(matrix) is not list:
+        raise TypeError("matrix must be a list of lists")
+    matrix_size = len(matrix)
+    if matrix_size == 0:
+        raise TypeError("matrix must be a list of lists")
+    for row in matrix:
+        if type(row) is not list:
+            raise TypeError("matrix must be a list of lists")
+        if len(row) == 0 and matrix_size == 1:
+            return 1
+        if len(row) != matrix_size:
+            raise ValueError("matrix must be a square matrix")
+    if matrix_size == 1:
+        return matrix[0][0]
+    if matrix_size == 2:
+        a = matrix[0][0]
+        b = matrix[0][1]
+        c = matrix[1][0]
+        d = matrix[1][1]
+        return ((a * d) - (b * c))
+    multiplier = 1
+    det = 0
+    for i in range(matrix_size):
+        element = matrix[0][i]
+        sub_matrix = []
+        for row in range(matrix_size):
+            if row == 0:
+                continue
+            new_row = []
+            for column in range(matrix_size):
+                if column == i:
+                    continue
+                new_row.append(matrix[row][column])
+            sub_matrix.append(new_row)
+        det += (element * multiplier * determinant(sub_matrix))
+        multiplier *= -1
+    return det
+
+
+def transpose(matrix):
+    """
+    Calculates the transpose of a square matrix
+    Matrix is assumed to be valid and square
+        based on previous type and value checks
+        from prior functions in which transpose is called
+
+    parameters:
+        matrix [list of lists]:
+            matrix whose transpose should be calculated
+
+    returns:
+        the transpose of matrix
+    """
+    matrix_size = len(matrix)
+    transpose_matrix = []
+    for i in range(matrix_size):
+        t_row = []
+        for row in range(matrix_size):
+            for column in range(matrix_size):
+                if column == i:
+                    t_row.append(matrix[row][column])
+        transpose_matrix.append(t_row)
+    return transpose_matrix
