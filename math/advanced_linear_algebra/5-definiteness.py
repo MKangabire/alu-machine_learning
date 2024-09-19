@@ -48,3 +48,4 @@ def definiteness(matrix):
     elif neg_count and pos_count == 0:
         return ("Negative definite")
     return ("Indefinite")
+

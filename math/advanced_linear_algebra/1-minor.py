@@ -94,3 +94,4 @@ def determinant(matrix):
         det += (element * multiplier * determinant(sub_matrix))
         multiplier *= -1
     return det
+
