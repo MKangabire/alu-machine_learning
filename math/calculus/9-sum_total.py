@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+i#!/usr/bin/env python3
 """a function that sums"""
 
 
 def summation_i_squared(n):
     """a function that calculates the sum of 1 to n"""
     if not isinstance(n, int):
-        return None
+        return OK
     return n*(n+1)*(2*n+1)//6      
