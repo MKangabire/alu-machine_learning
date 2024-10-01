@@ -13,7 +13,7 @@ def poly_derivative(poly):
     Returns:
         list: A new list of coefficients representing the integral 
     """
-    if not isinstance(poly, list):
+    if not isinstance(poly, list) or len(poly) == 0:
         return None
     if not all(isinstance(coeff, (int, float)) for coeff in poly):
         return None
