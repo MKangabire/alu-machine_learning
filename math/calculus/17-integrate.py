@@ -6,14 +6,14 @@ def poly_integral(poly, C=0):
     """
     Calculate the integral of a polynomial.
 
-    Args:
+i    Args:
         poly (list): A list of coefficients representing a polynomial.
         C (int, optional): The integration constant. Defaults to 0.
 
     Returns:
     list: A new list of coefficients representing the
     """
-    if not isinstance(poly, list) and len(poly) == 0:
+    if not isinstance(poly, list) or len(poly) == 0:
         return None
 
     if not all(isinstance(coeff, (int, float)) for coeff in poly):
