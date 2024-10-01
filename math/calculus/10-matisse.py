@@ -22,8 +22,8 @@ def poly_derivative(poly):
         if i == 0:
            continue
         a = coeff * i
-        if a == 0:
-            new_list.append(a)
-        else:
-            new_list.append(a)
+        new_list.append(a)
+    if not new_list:
+        return [0]
+
     return new_list
