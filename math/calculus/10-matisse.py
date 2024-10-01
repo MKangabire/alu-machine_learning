@@ -11,7 +11,7 @@ def poly_derivative(poly):
         C (int, optional): The integration constant. Defaults to 0.
 
     Returns:
-        list: A new list of coefficients representing the integral 
+        list: A new list of coefficients representing the integral
     """
     if not isinstance(poly, list) or len(poly) == 0:
         return None
@@ -20,7 +20,7 @@ def poly_derivative(poly):
     new_list = []
     for i, coeff in enumerate(poly):
         if i == 0:
-           continue
+            continue
         a = coeff * i
         new_list.append(a)
     if not new_list:
