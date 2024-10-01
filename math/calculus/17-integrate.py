@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Write a function def poly_integral(poly, C=0): that calculates"""
 
+
 def poly_integral(poly, C=0):
     """
     Calculate the integral of a polynomial.
@@ -10,9 +11,9 @@ def poly_integral(poly, C=0):
         C (int, optional): The integration constant. Defaults to 0.
 
     Returns:
-        list: A new list of coefficients representing the integral of the polynomi
+    list: A new list of coefficients representing the
     """
-    if not isinstance(poly, list):
+    if not isinstance(poly, list) and len(poly) == 0:
         return None
 
     if not all(isinstance(coeff, (int, float)) for coeff in poly):
