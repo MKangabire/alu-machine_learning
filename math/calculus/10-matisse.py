@@ -17,6 +17,10 @@ def poly_derivative(poly):
         return None
     if not all(isinstance(coeff, (int, float)) for coeff in poly):
         return None
-    integral = []
+    new_list = []
     for i, coeff in enumerate(poly):
-        integral.append(coeff / (i + 1))
+        if i == 0:
+           continue
+        a = coeff * i
+        new_list.append(a)
+    return new_list
