@@ -23,9 +23,17 @@ def poly_integral(poly, C=0):
 
     integral = [C]
     for i, coeff in enumerate(poly):
-        integral.append(coeff / (i + 1))
+        if coeff == 0:
+            integral.append(0)
+        else:
+            integral_coeff = coeff / (i + 1)
 
-    while integral and integral[-1] == 0:
+            if integral_coeff.is_integer():
+                integral.append(int(integral_coeff))
+            else:
+                integral.append(integral_coeff)
+
+    while len(integral) > 1 and integral[-1] == 0:
         integral.pop()
 
     return integral
