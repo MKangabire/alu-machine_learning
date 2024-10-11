@@ -31,23 +31,15 @@ class Poisson:
             result *= i
         return result
 
-    def exp(self, x):
-        """Calculate e^x using a Taylor series approximation"""
-        result = 1.0  # Start with the first term of the series
-        term = 1.0  # Initialize the term to 1 (x^0 / 0!)
-        for n in range(1, 201):  # 100 terms for a good approximation
-            term *= x / n  # Calculate the next term
-            result += term  # Add the term to the result
-        return result
-
     def pmf(self, k):
         """Calculates the PMF for a given number of successes (k)"""
         k = int(k)
 
         if k < 0:
             return 0
+        e = 2.7182818285
         lambtha = self.lambtha
-        pmf_value = (lambtha ** k) * self.exp(-lambtha) / self.factorial(k)
+        pmf_value = (lambtha ** k) * e ** (-lambtha) / self.factorial(k)
         return pmf_value
 
     def cdf(self, k):
@@ -57,7 +49,8 @@ class Poisson:
       if k < 0:
         return 0
       for i in range(0, k + 1):
+        e = 2.7182818285
         lambtha = self.lambtha
-        cdf_value += (lambtha ** i) * sel.exp ** (-lambtha) / self.factor(i)
+        cdf_value += (lambtha ** i) * e ** (-lambtha) / self.factor(i)
         return cdf_value
       
