@@ -3,7 +3,7 @@
 
 
 class Exponential:
-    """Class that represents an exponential distribution"""    
+    """Class that represents an exponential distribution"""
     def __init__(self, data=None, lambtha=1.):
         """Initialize the Exponential class"""
         if data is None:
