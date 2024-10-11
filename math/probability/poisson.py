@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Create a class Poisson that represents a Poisson distribution"""
 
+
 class Poisson:
     """Class that represents a Poisson distribution"""    
-    
     def __init__(self, data=None, lambtha=1.):
         """Initialize the Poisson class"""
         if data is None:
@@ -51,8 +51,6 @@ class Poisson:
         cdf_value = 0  # Initialize cdf_value
         e = 2.7182818285
         lambtha = self.lambtha
-        
         for i in range(0, k + 1):
-            cdf_value += (lambtha ** i) * e ** (-lambtha) / self.factorial(i)  # Use self.factorial
-        
+            cdf_value += (lambtha ** i) * e ** (-lambtha) / self.factorial(i)
         return cdf_value
