@@ -19,5 +19,5 @@ class Normal:
                 raise ValueError("data must contain multiple values")
 
             self.mean = float(sum(data) / len(data))
-            variance = sum((x - self.mean) ** 2 for x in data)
+            variance = sum((x - self.mean) ** 2 for x in data) / len(data)
             self.stddev = float(variance ** 0.5)
