@@ -35,7 +35,7 @@ class Poisson:
         """Calculate e^x using a Taylor series approximation"""
         result = 1  # Start with the first term of the series
         term = 1  # Initialize the term to 1 (x^0 / 0!)
-        for n in range(1, 100):  # 100 terms for a good approximation
+        for n in range(1, 201):  # 100 terms for a good approximation
             term *= x / n  # Calculate the next term
             result += term  # Add the term to the result
         return result
