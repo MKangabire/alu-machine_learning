@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Create a class Poisson that represents a Poisson distribution"""
 
+
 class Poisson:
-    """Class that represents a Poisson distribution"""
-    
+    """Class that represents a Poisson distribution"""    
     def __init__(self, data=None, lambtha=1.):
         """Initialize the Poisson class"""
         if data is None:
@@ -33,8 +33,8 @@ class Poisson:
 
     def exp(self, x):
         """Calculate e^x using a Taylor series approximation"""
-        result = 1  # Start with the first term of the series
-        term = 1  # Initialize the term to 1 (x^0 / 0!)
+        result = 1.0  # Start with the first term of the series
+        term = 1.0  # Initialize the term to 1 (x^0 / 0!)
         for n in range(1, 201):  # 100 terms for a good approximation
             term *= x / n  # Calculate the next term
             result += term  # Add the term to the result
