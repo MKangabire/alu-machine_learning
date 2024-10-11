@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Create a class Poisson that represents a poisson distribution"""
-import math
-
+"""Create a class Poisson that represents a Poisson distribution"""
 
 class Poisson:
-    """ class documentation"""
+    """Class that represents a Poisson distribution"""
+    
     def __init__(self, data=None, lambtha=1.):
-        """Create a class Poisson that represents a poisson distribution"""
+        """Initialize the Poisson class"""
         if data is None:
             # Use given lambtha if data is not provided
             if lambtha <= 0:
@@ -21,15 +20,33 @@ class Poisson:
             # Calculate lambtha from data (mean of the data)
             self.lambtha = float(sum(data) / len(data))
 
+    def factorial(self, n):
+        """Calculate factorial of n (n!)"""
+        if n < 0:
+            return 0
+        if n == 0 or n == 1:
+            return 1
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result
+
+    def exp(self, x):
+        """Calculate e^x using a Taylor series approximation"""
+        result = 1  # Start with the first term of the series
+        term = 1  # Initialize the term to 1 (x^0 / 0!)
+        for n in range(1, 100):  # 100 terms for a good approximation
+            term *= x / n  # Calculate the next term
+            result += term  # Add the term to the result
+        return result
+
     def pmf(self, k):
-      """calculates the pmf for a given number of successes"""
-      k = int(k)
+        """Calculates the PMF for a given number of successes (k)"""
+        k = int(k)
 
-      if k < 0:
-        return 0
+        if k < 0:
+            return 0
 
-      lambtha = self.lambtha
-      pmf_value = (lambtha ** k) * math.exp(-lambtha) / math.factorial(k)
-      return pmf_value
-
-    
+        lambtha = self.lambtha
+        pmf_value = (lambtha ** k) * self.exp(-lambtha) / self.factorial(k)
+        return pmf_value
