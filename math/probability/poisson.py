@@ -48,5 +48,17 @@ class Poisson:
             return 0
 
         lambtha = self.lambtha
-        pmf_value = (lambtha ** k) * self.exp(-lambtha) / self.factorial(k)
+        pmf_value = float((lambtha ** k) * self.exp(-lambtha) / self.factorial(k))
         return pmf_value
+
+    def cdf(self, k):
+      """calculates the cdf"""
+      k = int(k)
+
+      if k < 0:
+        return 0
+      for i in range(0, k + 1):
+        lambtha = self.lambtha
+        cdf_value += (lambtha ** i) * sel.exp ** (-lambtha) / self.factor(i)
+        return cdf_value
+      
