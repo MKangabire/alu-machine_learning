@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Create a class Poisson that represents a Poisson distribution"""
 
-
 class Poisson:
     """Class that represents a Poisson distribution"""    
+    
     def __init__(self, data=None, lambtha=1.):
         """Initialize the Poisson class"""
         if data is None:
@@ -31,34 +31,28 @@ class Poisson:
             result *= i
         return result
 
-    def exp(self, x):
-        """Calculate e^x using a Taylor series approximation"""
-        result = 1.0  # Start with the first term of the series
-        term = 1.0  # Initialize the term to 1 (x^0 / 0!)
-        for n in range(1, 201):  # 100 terms for a good approximation
-            term *= x / n  # Calculate the next term
-            result += term  # Add the term to the result
-        return result
-
     def pmf(self, k):
         """Calculates the PMF for a given number of successes (k)"""
         k = int(k)
 
         if k < 0:
             return 0
-
+        e = 2.7182818285
         lambtha = self.lambtha
-        pmf_value = (lambtha ** k) * self.exp(-lambtha) / self.factorial(k)
+        pmf_value = (lambtha ** k) * e ** (-lambtha) / self.factorial(k)
         return pmf_value
 
     def cdf(self, k):
-      """calculates the cdf"""
-      k = int(k)
+        """Calculates the CDF for a given number of successes (k)"""
+        k = int(k)
 
-      if k < 0:
-        return 0
-      for i in range(0, k + 1):
+        if k < 0:
+            return 0
+        cdf_value = 0  # Initialize cdf_value
         e = 2.7182818285
         lambtha = self.lambtha
-        cdf_value += (lambtha ** i) * e ** (-lambtha) / self.factor(i)
+        
+        for i in range(0, k + 1):
+            cdf_value += (lambtha ** i) * e ** (-lambtha) / self.factorial(i)  # Use self.factorial
+        
         return cdf_value
