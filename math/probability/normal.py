@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Create a class Normal that represents a normal distribution"""
 
+from math import erf  # Import the erf function
 
 class Normal:
     """Class that represents a normal distribution"""
@@ -45,5 +46,6 @@ class Normal:
         pi = 3.1415926535897
         e = 2.7182818285
         p = (self.stddev * (2 ** 0.5))
-        cdf_value = 0.5 * (1 + erf((x - self.mean) / p)
+        # Fixed missing parenthesis here
+        cdf_value = 0.5 * (1 + erf((x - self.mean) / p))
         return cdf_value
