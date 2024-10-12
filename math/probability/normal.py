@@ -35,26 +35,21 @@ class Normal:
     def pdf(self, x):
         """Calculate the PDF for a given value of x"""
         pi = 3.1415926535897
-        e = 2.7182818285
+        e = 2.718281828459045  # Define e
         p = (-0.5 * ((x - self.mean) / self.stddev) ** 2)
         pdf_value = (1 / (self.stddev * (2 * pi) ** 0.5)) * e ** p
         return pdf_value
 
     def erf(self, z):
         """Approximate the error function (erf) using Abramowitz and Stegun formula"""
+        e = 2.718281828459045
         t = 1.0 / (1.0 + 0.5 * abs(z))
-	p = (0.3465735902799726 + t * (0.541412))
+        p = (0.3465735902799726 + t * (0.541412))
         tau = t * (1.0 - t * (0.47047 + t * p))
         approx = 1 - tau * e ** (-z * z)
-        if z >= 0:
-            return approx
-        else:
-            return -approx
+        return approx if z >= 0 else -approx
 
     def cdf(self, x):
         """Calculate the CDF for a given value of x"""
-        pi = 3.1415926535897
-        e = 2.7182818285
-        p = (self.stddev * (2 ** 0.5))
-        cdf_value = 0.5 * (1 + self.erf((x - self.mean) / p))
+        cdf_value = 0.5 * (1 + self.erf((x - self.mean) / (self.stddev * (2 ** 0.5))))
         return cdf_value
