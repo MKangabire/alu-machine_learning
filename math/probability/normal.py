@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Create a class Normal that represents a normal distribution"""
 
-from math import erf  # Import the erf function
 
 class Normal:
     """Class that represents a normal distribution"""
