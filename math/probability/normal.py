@@ -47,7 +47,8 @@ class Normal:
         for n in range(20):  # higher range gives more accurate result
             sum += term
             term *= -z ** 2 / (n + 1) / (2 * n + 3)
-        return (2 / (pi ** 0.5)) * sum
+        erf = (2 / (pi ** 0.5)) * sum
+        return erf
 
     def cdf(self, x):
         """Calculate the CDF for a given value of x"""
