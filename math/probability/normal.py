@@ -40,16 +40,22 @@ class Normal:
         pdf_value = (1 / (self.stddev * (2 * pi) ** 0.5)) * e ** p
         return pdf_value
 
-    def erf(self, z):
-        """Approximate the error function (erf) using Abramowitz and Stegun formula"""
-        e = 2.718281828459045
-        t = 1.0 / (1.0 + 0.5 * abs(z))
-        p = (0.3465735902799726 + t * (0.541412))
-        tau = t * (1.0 - t * (0.47047 + t * p))
-        approx = 1 - tau * e ** (-z * z)
-        return approx if z >= 0 else -approx
+     def cdf(self, x):
+        """
+        calculates the value of the CDF for a given x-value
 
-    def cdf(self, x):
-        """Calculate the CDF for a given value of x"""
-        cdf_value = 0.5 * (1 + self.erf((x - self.mean) / (self.stddev * (2 ** 0.5))))
-        return cdf_value
+        parameters:
+            x: x-value
+
+        return:
+            the CDF value for x
+        """
+        mean = self.mean
+        stddev = self.stddev
+        pi = 3.1415926536
+        value = (x - mean) / (stddev * (2 ** (1 / 2)))
+        erf = value - ((value ** 3) / 3) + ((value ** 5) / 10)
+        erf = erf - ((value ** 7) / 42) + ((value ** 9) / 216)
+        erf *= (2 / (pi ** (1 / 2)))
+        cdf = (1 / 2) * (1 + erf)
+        return cdf
