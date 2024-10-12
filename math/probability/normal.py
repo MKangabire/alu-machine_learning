@@ -36,15 +36,22 @@ class Normal:
         """Calculate the PDF for a given value of x"""
         pi = 3.1415926535897
         e = 2.7182818285
-        p = (-0.5 * ((x - self.mean) / self.stddev) ** 2)
-        pdf_value = (1 / (self.stddev * (2 * pi) ** 0.5)) * e ** p
+        pdf_value = (1 / (self.stddev * (2 * pi) ** 0.5)) * e ** (-0.5 * ((x - self.mean) / self.stddev) ** 2)
         return pdf_value
+
+    def erf(self, z):
+        """Approximate the error function (erf) using a Maclaurin series"""
+        pi = 3.1415926535897
+        sum = 0
+        term = z  # first term in the series
+        for n in range(20):  # higher range gives more accurate result
+            sum += term
+            term *= -z ** 2 / (n + 1) / (2 * n + 3)
+        return (2 / (pi ** 0.5)) * sum
 
     def cdf(self, x):
         """Calculate the CDF for a given value of x"""
         pi = 3.1415926535897
         e = 2.7182818285
-        p = (self.stddev * (2 ** 0.5))
-        # Fixed missing parenthesis here
-        cdf_value = 0.5 * (1 + erf((x - self.mean) / p))
+        cdf_value = 0.5 * (1 + erf((x - self.mean) / (self.stddev * (2 ** 0.5))))
         return cdf_value
