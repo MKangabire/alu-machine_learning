@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Create a class Binomial that represents a binomial distribution"""
-import numpy as np
+
 
 class Binomial:
     """Class that represents a binomial distribution"""
