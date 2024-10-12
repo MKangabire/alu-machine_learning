@@ -36,12 +36,14 @@ class Normal:
         """Calculate the PDF for a given value of x"""
         pi = 3.1415926535897
         e = 2.7182818285
-        pdf_value = (1 / (self.stddev * (2 * pi) ** 0.5)) * e ** (-0.5 * ((x - self.mean) / self.stddev) ** 2)
+        p = (-0.5 * ((x - self.mean) / self.stddev) ** 2)
+        pdf_value = (1 / (self.stddev * (2 * pi) ** 0.5)) * e ** p
         return pdf_value
 
     def cdf(self, x):
         """Calculate the CDF for a given value of x"""
         pi = 3.1415926535897
         e = 2.7182818285
-        cdf_value = 0.5 * (1 + erf((x - self.mean) / (self.stddev * (2 ** 0.5))))
+        p = (self.stddev * (2 ** 0.5))))
+        cdf_value = 0.5 * (1 + erf((x - self.mean) / p
         return cdf_value
