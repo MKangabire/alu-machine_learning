@@ -31,3 +31,17 @@ class Normal:
         """Calculate the x-value for a given z-score"""
         x_value = z * self.stddev + self.mean
         return x_value
+
+    def pdf(self, x):
+        """Calculate the PDF for a given value of x"""
+        pi = 3.1415926535897
+        e = 2.7182818285
+        pdf_value = (1 / (self.stddev * (2 * pi) ** 0.5)) * e ** (-0.5 * ((x - self.mean) / self.stddev) ** 2)
+        return pdf_value
+
+    def cdf(self, x):
+        """Calculate the CDF for a given value of x"""
+        pi = 3.1415926535897
+        e = 2.7182818285
+        cdf_value = 0.5 * (1 + erf((x - self.mean) / (self.stddev * (2 ** 0.5))))
+        return cdf_value
