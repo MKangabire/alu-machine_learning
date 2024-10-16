@@ -1,14 +1,11 @@
-import numpy as np
 #!/usr/bin/env python3
 """A function that calculates the Correlation of a data set."""
 
+import numpy as np
+
 
 def correlation(C):
-    """Calculates the correlation matrix from a covariance matrix.
-    
-    Args:
-    C (numpy.ndarray): Covariance matrix of shape (d, d)
-    
+    """Calculates the correlation matrix from a covar
     Returns:
     numpy.ndarray: Correlation matrix of shape (d, d)
     """
@@ -23,7 +20,7 @@ def correlation(C):
 
     if np.any(std_devs == 0):
         raise ValueError("Standard deviation cannot be zero")
-    
+
     std_outer = np.outer(std_devs, std_devs)
 
     corr_matrix = C / std_outer
