@@ -34,6 +34,7 @@ class Multinormal:
     self.mean = np.mean(data, axis=0).reshape(d, 1)
     centered_data = data - np.mean(data, axis=0)
     self.cov = np.dot(centered_data.T, centered_data) / (n - 1)
+
   def pdf(self, x):
     """calculates the probability density function of the multinormal distribution."""
     if not isinstance(x, np.ndarray) or x.ndim != 2:
