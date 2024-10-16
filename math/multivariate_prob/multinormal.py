@@ -15,4 +15,4 @@ class MultiNormal:
         self.data = data
         self.mean = np.mean(data, axis=1, keepdims=True).reshape(d, 1)
         centered_data = data - self.mean
-        self.cov = np.dot(centered_data.T, centered_data) / (n - 1)
+        self.cov = np.dot(centered_data, centered_data.T) / (n - 1)
