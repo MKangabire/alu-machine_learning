@@ -9,10 +9,10 @@ class MultiNormal:
         """initialises the multinormal distribution."""
         if not isinstance(data, np.ndarray) or data.ndim != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
-        n, d = data.shape
+        d, n = data.shape
         if n < 2:
             raise ValueError("data must contain multiple data points")
         self.data = data
-        self.mean = np.mean(data, axis=0).reshape(d, 1)
-        centered_data = data - np.mean(data, axis=0)
+        self.mean = np.mean(data, axis=0, keepdims=True).reshape(d, 1)
+        centered_data = data - self.mean
         self.cov = np.dot(centered_data.T, centered_data) / (n - 1)
