@@ -10,7 +10,7 @@ class MultiNormal:
         if not isinstance(data, np.ndarray) or data.ndim != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
         
-        d, n = data.shape  # Flip the order to correctly represent dimensions and samples
+        d, n = data.shape  # Number of dimensions (d) and number of data points (n)
         if n < 2:
             raise ValueError("data must contain multiple data points")
         
@@ -26,7 +26,7 @@ class MultiNormal:
         
         d = self.data.shape[0]  # Number of dimensions
         if x.shape != (d, 1):  # Check if x has the shape (d, 1)
-            raise ValueError(f"x must have the shape ({d}, 1)")
+            raise ValueError("x must have the shape ({}, 1)".format(d))
 
         diff = x - self.mean  # Calculate the difference (x - mean)
 
