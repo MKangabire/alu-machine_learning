@@ -6,14 +6,11 @@ import numpy as np
 def likelihood(x, n, P):
     """
     Calculates the likelihood of
-    
+
     Args:
         x (int): Number of patients with severe side effects.
         n (int): Total number of patients observed.
         P (numpy.ndarray): 1D array of hypothetical probabilities.
-        
-    Returns:
-        numpy.ndarray: Likelihood of obtaining the data, x and n, for each probability in P.
     """
     if not isinstance(n, int) or n <= 0:
         raise ValueError("n must be a positive integer")
