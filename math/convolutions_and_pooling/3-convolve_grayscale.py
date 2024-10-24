@@ -55,3 +55,4 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
             convolved[:, i, j] = np.sum(np.multiply(image, kernel),
                                         axis=(1, 2))
     return convolved
+    
