@@ -4,14 +4,11 @@
 
 import numpy as np
 
+
 class Neuron:
     """class neuron"""
-
-
     def __init__(self, nx):
         """initializing method"""
-
-        
         self.nx = nx
         if not isinstance(nx, int):
             raise TypeError("nx must be a integer")
