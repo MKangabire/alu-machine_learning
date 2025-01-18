@@ -47,7 +47,7 @@ class Neuron:
         div = 1.0000001 - A
         cost = -(1 / m) * np.sum(Y * np.log(A) + (1 - Y) * np.log(div))
         return cost
-    
+
     def evaluate(self, X, Y):
         """Evaluates neuron's prediction"""
         A = self.forward_prop(X)
