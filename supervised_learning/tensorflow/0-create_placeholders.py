@@ -2,7 +2,7 @@
 """tensoflow"""
 
 import tensorflow as tf
-# tf.disable_v2_behavior()
+
 
 def create_placeholders(nx, classes):
     """a function that returns 2 placeholders"""
