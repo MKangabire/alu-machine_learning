@@ -28,4 +28,3 @@ def l2_reg_cost(cost, lambtha, weights, L, m):
         weights_squared += np.linalg.norm(level_weight)
     l2_reg_cost = cost + ((lambtha / (2 * m)) * weights_squared)
     return l2_reg_cost
-    
