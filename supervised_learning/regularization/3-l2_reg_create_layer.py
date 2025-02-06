@@ -1,26 +1,33 @@
 #!/usr/bin/env python3
-"""Create a layer L2 regularization"""
+"""
+Defines a function that creates a TensorFlow layer
+that includes L2 Regularization
+"""
+
 import tensorflow as tf
 
 
 def l2_reg_create_layer(prev, n, activation, lambtha):
-    """Creates a TensorFlow 1.12 layer with L2 regularization.
-    
-    Args:
-        prev: tensor, output of the previous layer
-        n: int, number of nodes in the new layer
-        activation: activation function to apply
-        lambtha: float, L2 regularization parameter
-    
-    Returns:
-        Tensor, output of the new layer
     """
-    l2_reg = tf.contrib.layers.l2_regularizer(scale=lambtha)
+    Creates a TensorFlow layer that includes L2 regularization
 
+    parameters:
+        prev [tensor]: contains the output of the previous layer
+        n [int]: number of nodes the new layer should contain
+        activation [activation function]:
+            activation function new layer should use
+        lambtha: L2 regularization parameter
+
+    returns:
+        output of the new layer
+    """
+    l2_reg = tf.contrib.layers.l2_regularizer(lambtha)
+    weights_initializer = tf.contrib.layers.variance_scaling_initializer(
+        mode="FAN_AVG")
     layer = tf.layers.Dense(
-        units=n,
+        n,
         activation=activation,
-        kernel_regularizer=l2_reg
-    )
-
-    return layer(prev)
+        name="layer",
+        kernel_initializer=weights_initializer,
+        kernel_regularizer=l2_reg)
+    return (layer(prev))
