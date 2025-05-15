@@ -10,7 +10,7 @@ class RNNCell:
     Represents a simple RNN (Recurrent Neural Network) cell.
     Performs forward propagation for a single time step.
 
-    Attributes:        
+    Attributes:
         bh (ndarray): Bias for the hidden state (shape: (1, h)).
         Wy (ndarray): Weights for the output (shape: (h, o)).
         by (ndarray): Bias for the output (shape: (1, o)).
