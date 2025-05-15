@@ -4,13 +4,13 @@
 
 import numpy as np
 
+
 class RNNCell:
     """
     Represents a simple RNN (Recurrent Neural Network) cell.
     Performs forward propagation for a single time step.
 
-    Attributes:
-        Wh (ndarray): Weights for the concatenated hidden state and input data (shape: (i+h, h)).
+    Attributes:        
         bh (ndarray): Bias for the hidden state (shape: (1, h)).
         Wy (ndarray): Weights for the output (shape: (h, o)).
         by (ndarray): Bias for the output (shape: (1, o)).
@@ -25,7 +25,7 @@ class RNNCell:
             h (int): Dimensionality of the hidden state.
             o (int): Dimensionality of the output.
         """
-        # Weights and bias for hidden state computation (input + previous hidden state)
+
         self.Wh = np.random.randn(i + h, h)   # Shape: (i + h, h)
         self.bh = np.zeros((1, h))            # Shape: (1, h)
 
@@ -70,5 +70,5 @@ class RNNCell:
         Returns:
             ndarray: Softmax-activated output (shape: (m, o)).
         """
-        e_z = np.exp(z - np.max(z, axis=1, keepdims=True))  # Numerical stability trick
+        e_z = np.exp(z - np.max(z, axis=1, keepdims=True))
         return e_z / np.sum(e_z, axis=1, keepdims=True)
