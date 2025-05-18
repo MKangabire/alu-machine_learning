@@ -1,81 +1,46 @@
 #!/usr/bin/env python3
-"""recurrent neural networks"""
+"""Bidirectional RNN forward propagation"""
+
 import numpy as np
 
 
-class BidirectionalCell:
+def bi_rnn(bi_cell, X, h_0, h_t):
     """
-    Represents a bidirectional RNN cell.
+    Performs forward propagation for a bidirectional RNN
+
+    Parameters:
+    - bi_cell: instance of BidirectionalCell
+    - X: np.ndarray of shape (t, m, i) with input data
+    - h_0: np.ndarray of shape (m, h) 
+    - h_t: np.ndarray of shape (m, h)
+
+    Returns:
+    - H: np.ndarray of shape (t, m, 2*h), 
+    - Y: np.ndarray of shape (t, m, o), outputs
     """
+    t, m, i = X.shape
+    h = h_0.shape[1]
 
-    def __init__(self, i, h, o):
-        """
-        Class constructor
+    # Initialize containers for hidden states
+    Hf = np.zeros((t, m, h))
+    Hb = np.zeros((t, m, h))
 
-        Args:
-            i (int): Dimensionality of the data
-            h (int): Dimensionality of the hidden states
-            o (int): Dimensionality of the outputs
-        """
-        # Forward direction parameters
-        self.Whf = np.random.randn(i + h, h)
-        self.bhf = np.zeros((1, h))
+    # Forward pass
+    h_prev = h_0
+    for time in range(t):
+        h_prev = bi_cell.forward(h_prev, X[time])
+        Hf[time] = h_prev
 
-        # Backward direction parameters
-        self.Whb = np.random.randn(i + h, h)
-        self.bhb = np.zeros((1, h))
+    # Backward pass
+    h_next = h_t
+    for time in reversed(range(t)):
+        h_next = bi_cell.backward(h_next, X[time])
+        Hb[time] = h_next
 
-        # Output parameters
-        self.Wy = np.random.randn(2 * h, o)
-        self.by = np.zeros((1, o))
+    # Concatenate hidden states
+    H = np.concatenate((Hf, Hb), axis=2)
 
-    def forward(self, h_prev, x_t):
-        """
-        Calculates the forward hidden state for one time step.
+    # Compute output
+    Y = bi_cell.output(H)
 
-        Args:
-            h_prev (np.ndarray): shape (m, h), previous hidden state
-            x_t (np.ndarray): shape (m, i), input at time t
-
-        Returns:
-            np.ndarray: shape (m, h), next hidden state
-        """
-        concat = np.concatenate((h_prev, x_t), axis=1)
-        return np.tanh(np.matmul(concat, self.Whf) + self.bhf)
-
-    def backward(self, h_next, x_t):
-        """
-        Calculates the backward hidden state for one time step.
-
-        Args:
-            h_next (np.ndarray): shape (m, h), next hidden state
-            x_t (np.ndarray): shape (m, i), input at time t
-
-        Returns:
-            np.ndarray: shape (m, h), previous hidden state
-        """
-        concat = np.concatenate((h_next, x_t), axis=1)
-        return np.tanh(np.matmul(concat, self.Whb) + self.bhb)
-
-    def output(self, H):
-        """
-        Calculates all outputs for the bidirectional RNN.
-
-        Args:
-            H (np.ndarray): shape (t, m, 2 * h), concatenated hidden states
-
-        Returns:
-            Y (np.ndarray): shape (t, m, o), outputs
-        """
-        t, m, _ = H.shape
-        Y = []
-
-        for time_step in range(t):
-            h_concat = H[time_step]  # shape (m, 2*h)
-            y_t = np.matmul(h_concat, self.Wy) + self.by  # shape (m, o)
-            # Apply softmax
-            y_t_exp = np.exp(y_t - np.max(y_t, axis=1, keepdims=True))
-            y_t_softmax = y_t_exp / np.sum(y_t_exp, axis=1, keepdims=True)
-            Y.append(y_t_softmax)
-
-        return np.array(Y)  # shape (t, m, o)
+    return H, Y

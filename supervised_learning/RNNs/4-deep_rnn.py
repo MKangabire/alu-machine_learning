@@ -10,7 +10,7 @@ def deep_rnn(rnn_cells, X, h_0):
     Performs forward propagation for a deep RNN.
 
     Args:
-        rnn_cells (list): List of RNNCell instances (length el), 
+        rnn_cells (list): List of RNNCell instances (length el),
         X (ndarray): Input data of shape (t, m, i)
             - t: Number of time steps
             - m: Batch size
