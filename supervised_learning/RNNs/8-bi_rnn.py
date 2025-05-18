@@ -11,11 +11,11 @@ def bi_rnn(bi_cell, X, h_0, h_t):
     Parameters:
     - bi_cell: instance of BidirectionalCell
     - X: np.ndarray of shape (t, m, i) with input data
-    - h_0: np.ndarray of shape (m, h) 
+    - h_0: np.ndarray of shape (m, h)
     - h_t: np.ndarray of shape (m, h)
 
     Returns:
-    - H: np.ndarray of shape (t, m, 2*h), 
+    - H: np.ndarray of shape (t, m, 2*h),
     - Y: np.ndarray of shape (t, m, o), outputs
     """
     t, m, i = X.shape
