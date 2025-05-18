@@ -33,7 +33,7 @@ class BidirectionalCell:
 
     def forward(self, h_prev, x_t):
         """
-        Performs forward propagation for one time step 
+        Performs forward propagation for one time step
 
         Args:
             h_prev (ndarray): Previous hidden state of shape (m, h)
@@ -48,7 +48,7 @@ class BidirectionalCell:
 
     def backward(self, h_next, x_t):
         """
-        Performs backward propagation for one time step in the backward direction.
+        Performs backward propagation for one time step
 
         Args:
             h_next (ndarray): Next hidden state of shape (m, h)

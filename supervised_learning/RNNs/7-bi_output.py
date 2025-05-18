@@ -50,7 +50,7 @@ class BidirectionalCell:
 
         Args:
             h_next (np.ndarray): shape (m, h), next e
-            x_t (np.ndarray): shape (m, i), input 
+            x_t (np.ndarray): shape (m, i), input
 
         Returns:
             np.ndarray: shape (m, h), previous hidden state
