@@ -49,8 +49,8 @@ class BidirectionalCell:
         Calculates the backward hidden state for one time step.
 
         Args:
-            h_next (np.ndarray): shape (m, h), next hidden state
-            x_t (np.ndarray): shape (m, i), input at time t
+            h_next (np.ndarray): shape (m, h), next e
+            x_t (np.ndarray): shape (m, i), input 
 
         Returns:
             np.ndarray: shape (m, h), previous hidden state
@@ -75,7 +75,7 @@ class BidirectionalCell:
             h_concat = H[time_step]  # shape (m, 2*h)
             y_t = np.matmul(h_concat, self.Wy) + self.by  # shape (m, o)
             # Apply softmax
-            y_t_exp = np.exp(y_t - np.max(y_t, axis=1, keepdims=True))  # stability
+            y_t_exp = np.exp(y_t - np.max(y_t, axis=1, keepdims=True))
             y_t_softmax = y_t_exp / np.sum(y_t_exp, axis=1, keepdims=True)
             Y.append(y_t_softmax)
 

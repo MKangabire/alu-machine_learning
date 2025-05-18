@@ -74,7 +74,7 @@ class BidirectionalCell:
             h_concat = H[time_step]  # shape (m, 2*h)
             y_t = np.matmul(h_concat, self.Wy) + self.by  # shape (m, o)
             # Apply softmax
-            y_t_exp = np.exp(y_t - np.max(y_t, axis=1, keepdims=True))  # stability
+            y_t_exp = np.exp(y_t - np.max(y_t, axis=1, keepdims=True))
             y_t_softmax = y_t_exp / np.sum(y_t_exp, axis=1, keepdims=True)
             Y.append(y_t_softmax)
 
