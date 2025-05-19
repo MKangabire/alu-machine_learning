@@ -10,7 +10,7 @@ def rnn(rnn_cell, X, h_0):
     Performs forward propagation for a simple RNN over multiple time steps.
 
     Args:
-        rnn_cell (RNNCell): An instance of the RNNCell class used 
+        rnn_cell (RNNCell): An instance of the RNNCell class used
         X (ndarray): Input data for the RNN, of shape (t, m, i)
                      - t: number of time steps
                      - m: batch size
