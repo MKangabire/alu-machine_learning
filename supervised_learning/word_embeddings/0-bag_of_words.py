@@ -15,23 +15,22 @@ def bag_of_words(sentences, vocab=None):
     - embeddings (np.ndarray): Shape (s, f), s = #sentences
     - features (list): List of features used (vocab)
     """
-    # Tokenize and lower all words in sentences
-    tokenized_sentences = [sentence.lower().split() for 
-                           sentence in sentences]
-
-    # Build vocabulary if not provided
     if vocab is None:
-        vocab_set = set()
-        for sentence in tokenized_sentences:
-            vocab_set.update(sentence)
-        features = sorted(list(vocab_set))
+        # Build vocab from all words in sentences
+        words = set()
+        for sentence in sentences:
+            for word in sentence.lower().split():
+                words.add(word)
+        features = sorted(words)  # consistent order
+    else:
         features = vocab
 
     # Create embeddings matrix
     embeddings = np.zeros((len(sentences), len(features)), dtype=int)
 
-    for i, sentence in enumerate(tokenized_sentences):
-        for j, word in enumerate(features):
-            embeddings[i, j] = sentence.count(word)
+    for i, sentence in enumerate(sentences):
+        words = sentence.lower().split()
+        for j, feature in enumerate(features):
+            embeddings[i, j] = words.count(feature)
 
     return embeddings, features
