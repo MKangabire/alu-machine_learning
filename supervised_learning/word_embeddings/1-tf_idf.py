@@ -1,48 +1,35 @@
 #!/usr/bin/env python3
+"""
+Defines function that creates a TF-IDF embedding
+"""
 
-import numpy as np
-import math
+
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def tf_idf(sentences, vocab=None):
     """
-    Creates a TF-IDF embedding matrix.
+    Creates a TF-IDF embedding
 
-    Parameters:
-    - sentences: list of sentences (strings)
-    Returns:
-    - embeddings: numpy.ndarray of shape (s, f)
-    - features: list of features (words)
+    parameters:
+        sentences [list]:
+            list of sentences to analyze
+
+        vocab [list]:
+            list of vocabulary words to use for analysis
+            if None, all words within sentences should be used
+
+    returns:
+        embeddings,features:
+            embeddings [numpy.ndarray of shape (s, f)]:
+                contains the embeddings
+                s: number of sentences in sentences
+                f: number of features analyzed
+            features [list]:
+                list of features used for embeddings
     """
-    # Build vocabulary if not provided
-    if vocab is None:
-        words = set()
-        for sentence in sentences:
-            for word in sentence.lower().split():
-                words.add(word)
-        features = sorted(words)
-    else:
-        features = vocab
-
-    s = len(sentences)
-    f = len(features)
-    embeddings = np.zeros((s, f))
-
-    # Compute IDF for each feature
-    idf = []
-    for feature in features:
-        doc_count = sum(1 for sentence in sentences if 
-                        feature in sentence.lower().split())
-        idf_score = math.log((1 + s) / (1 + doc_count)) + 1
-        idf.append(idf_score)
-
-    # Compute TF and TF-IDF
-    for i, sentence in enumerate(sentences):
-        words = sentence.lower().split()
-        total_words = len(words)
-        for j, feature in enumerate(features):
-            tf = words.count(feature) / total_words \
-            if total_words > 0 else 0
-            embeddings[i, j] = tf * idf[j]
-
+    vectorizer = TfidfVectorizer(vocabulary=vocab)
+    x = vectorizer.fit_transform(sentences)
+    embeddings = x.toarray()
+    features = vectorizer.get_feature_names()
     return embeddings, features
