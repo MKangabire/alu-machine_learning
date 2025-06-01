@@ -12,7 +12,7 @@ class RNNEncoder(tf.keras.layers.Layer):
     Attributes:
         batch (int): The batch size.
         units (int): The number of hidden units in the GRU cell.
-        embedding (tf.keras.layers.Embedding): Embedding layer that maps input tokens to dense vectors.
+        embedding (tf.keras.layers.Embedding): Embedding layer that
         gru (tf.keras.layers.GRU): GRU layer to process the sequence.
     """
 
@@ -41,7 +41,7 @@ class RNNEncoder(tf.keras.layers.Layer):
             units=self.units,
             return_sequences=True,      # return the full output sequence
             return_state=True,          # return the last hidden state
-            recurrent_initializer='glorot_uniform'  # initializer for recurrent weights
+            recurrent_initializer='glorot_uniform'
         )
 
     def initialize_hidden_state(self):
@@ -49,7 +49,7 @@ class RNNEncoder(tf.keras.layers.Layer):
         Initializes the hidden state to zeros.
 
         Returns:
-            tf.Tensor: A tensor of shape (batch, units) representing the initial hidden state.
+            tf.Tensor: A tensor of shape (batch, units)
         """
         return tf.zeros((self.batch, self.units))
 
@@ -58,11 +58,11 @@ class RNNEncoder(tf.keras.layers.Layer):
         Performs a forward pass through the encoder.
 
         Args:
-            x (tf.Tensor): Input tensor of shape (batch, input_seq_len) containing word indices.
-            initial (tf.Tensor): Initial hidden state tensor of shape (batch, units).
+            x (tf.Tensor): Input tensor of shape (batch,
+            initial (tf.Tensor): Initial hidden state tensor
 
         Returns:
-            outputs (tf.Tensor): Output tensor of shape (batch, input_seq_len, units) containing encoded features.
+            outputs (tf.Tensor): Output tensor of shape (batch,)
             hidden (tf.Tensor): Final hidden state of shape (batch, units).
         """
         # Convert word indices to embeddings
