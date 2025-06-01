@@ -1,39 +1,43 @@
 #!/usr/bin/env python3
-"""Attention in RNN"""
+"""
+Defines a function that calculates the scaled dot product attention
+"""
+
 
 import tensorflow as tf
 
+
 def sdp_attention(Q, K, V, mask=None):
     """
-    Calculates the scaled dot product attention.
+    Calculates the scaled dot product attention
 
-    Args:
-        Q (tf.Tensor): Query tensor of shape (..., seq_len_q, dk)
-        K (tf.Tensor): Key tensor of shape (..., seq_len_v, dk)
-        V (tf.Tensor): Value tensor of shape (..., seq_len_v, dv)
-        mask (tf.Tensor, optional): Tensor broadcastable to
+    parameters:
+        Q [tensor with last two dimensions as (..., seq_len_q, dk)]:
+            contains the query matrix
+        K [tensor with last two dimensions as (..., seq_len_v, dk)]:
+            contains the key matrix
+        V [tensor with last two dimensions as (..., seq_len_v, dv)]:
+            contains the value matrix
+        mask [tensor that can be broadcast into (..., seq_len_q, seq_len_v)]:
+            contains the optional mask, or defaulted to None
 
-    Returns:
-        output (tf.Tensor): Attention output tensor of
-        weights (tf.Tensor): Attention weights of shape
+    returns:
+        outputs, weights:
+            outputs [tensor with last two dimensions as (..., seq_len_q, dv)]:
+                contains the scaled dot product attention
+            weights [tensor with last two dimensions as
+                    (..., seq_len_q, seq_len_v)]:
+                contains the attention weights
     """
-    # Get depth of the key vectors
-    dk = tf.cast(tf.shape(K)[-1], tf.float32)
-
-    # Calculate the dot product between Q and K^T
     matmul_qk = tf.matmul(Q, K, transpose_b=True)
-
-    # Scale the dot products
+    # scale matmul_qk
+    dk = tf.cast(tf.shape(K)[-1], tf.float32)
     scaled_attention_logits = matmul_qk / tf.math.sqrt(dk)
-
-    # Apply the mask (if any)
+    # add mask to scaled tensor
     if mask is not None:
         scaled_attention_logits += (mask * -1e9)
-
-    # Apply softmax to get the attention weights
+    # normalize softmax on last axis so all scores add up to 1
     weights = tf.nn.softmax(scaled_attention_logits, axis=-1)
-
-    # Multiply the attention weights by the value matrix
-    output = tf.matmul(weights, V)  # (..., seq_len_q, dv)
-
-    return output, weights
+    # calculate outputs
+    outputs = tf.matmul(weights, V)
+    return outputs, weights
